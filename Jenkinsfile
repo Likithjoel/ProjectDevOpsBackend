@@ -8,12 +8,12 @@ pipeline {
 		}
 		stage('clean workspace') {
 			steps {
-				mvn clean
+				sh 'mvn clean'
 			}
 		}
 		stage('Build') {
 			steps {
-				mvn install
+				sh 'mvn install'
 			}
 		}
 	}
