@@ -13,7 +13,7 @@ pipeline {
 		}
 		stage('Build') {
 			steps {
-				sh 'mvn install'
+				sh 'mvn -f pom.xml install -Dmaven.test.skip=true'
 			}
 		}
 	}
