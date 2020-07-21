@@ -1,12 +1,15 @@
 package com.projectDevOps.projectDevOps.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.projectDevOps.projectDevOps.model.AppModel;
 import com.projectDevOps.projectDevOps.repository.AppRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${client.url}")
 @RestController
 @RequestMapping("/api")
 public class AppController {
@@ -120,5 +123,7 @@ public class AppController {
 	      return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
 	    }
 	  }
+	  
+
 
 }
