@@ -29,7 +29,7 @@ pipeline {
 		}
 		stage('Run Application') {
 			steps {
-				build job "backend_run"
+				build "backend_run"
 			}
 			
 		}
