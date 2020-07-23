@@ -7,9 +7,7 @@ pipeline {
 		stage('Checkout') {
 			steps {
 				echo 'checked out code'
-				script{
-					sh "sshpass -p '${env.SOME_CREDS_PSW}' scp -r /home/jenkins/likith backend@40.121.162.131:./"
-				}
+				
 			}
 		}
 		stage('clean workspace') {
