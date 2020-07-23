@@ -3,6 +3,12 @@ pipeline {
 	environment{
         BACKEND_CREDS = credentials('BACKEND')
     }
+	def remote = [:]
+    			remote.name = 'backend'
+   			remote.host = '40.121.162.131'
+    			remote.user = 'backend'
+    			remote.password = '${env.BACKEND_CREDS_PSW}'
+    			remote.allowAnyHosts = true
 	stages{
 		stage('Checkout') {
 			steps {
@@ -28,12 +34,7 @@ pipeline {
 			}
 		}
 		stage('Run Application') {
-			def remote = [:]
-    			remote.name = 'backend'
-   			remote.host = '40.121.162.131'
-    			remote.user = 'backend'
-    			remote.password = '${env.BACKEND_CREDS_PSW}'
-    			remote.allowAnyHosts = true
+			
 			sshCommand remote: remote, command: "ls -lrt"
 		}
 	}
