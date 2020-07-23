@@ -1,37 +1,26 @@
-pipeline {
-	agent any
-	environment{
-        BACKEND_CREDS = credentials('BACKEND')
-    }
-	stages{
-		stage('Checkout') {
-			steps {
-				echo 'checked out code'
-				
-			}
+def remote = [:]
+remote.name = "backend"
+remote.host = "40.121.162.131"
+remote.allowAnyHosts = true
+node {
+	withCredentials([usernamePassword(credentialsId: 'BACKEND', passwordVariable: 'password', usernameVariable: 'userName')]) {
+        	remote.user = userName
+        	remote.password = password
+		stage('checkout') {
+			echo 'checked out the code'
 		}
 		stage('clean workspace') {
-			steps {
-				sh 'mvn clean'
-			}
+			sh 'mvn clean'
 		}
-		stage('Build') {
-			steps {
-				sh 'mvn -f pom.xml install -Dmaven.test.skip=true'
-			}
+		stage('build') {
+			sh 'mvn -f pom.xml install -Dmaven.test.skip=true'
 		}
-		stage('Deploy') {
-			steps {
-				script{
-					sh "sshpass -p '${env.BACKEND_CREDS_PSW}' scp -r /var/lib/jenkins/workspace/devops_backend backend@40.121.162.131:./"
-				}
-			}
+		stage('deploy') {
+			sshCommand remote: remote, command: "rm -rf devops_backend/"
+			sh "sshpass -p 'password' scp -r /var/lib/jenkins/workspace/devops_backend backend@40.121.162.131:./"
 		}
-		stage('Run Application') {
-			steps {
-				build "backend_run"
-			}
-			
+		stage('run') {
+			sshCommand remote: remote, command: "ls -ltr"
 		}
 	}
 }
