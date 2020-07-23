@@ -23,7 +23,7 @@ pipeline {
 		stage('Deploy') {
 			steps {
 				script{
-					sh "sudo sshpass -p '${env.BACKEND_CREDS_PSW}' scp -r /var/lib/jenkins/workspace/devops_backend backend@40.121.162.131:./"
+					sh "sshpass -p '${env.BACKEND_CREDS_PSW}' scp -r /var/lib/jenkins/workspace/devops_backend backend@40.121.162.131:./"
 				}
 			}
 		}
