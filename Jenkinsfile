@@ -17,7 +17,7 @@ node {
 		}
 		stage('deploy') {
 			sshCommand remote: remote, command: "rm -rf devops_backend/"
-			sh "sshpass -p 'password' scp -r /var/lib/jenkins/workspace/devops_backend backend@40.121.162.131:./"
+			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
 		}
 		stage('run') {
 			sshCommand remote: remote, command: "ls -ltr"
