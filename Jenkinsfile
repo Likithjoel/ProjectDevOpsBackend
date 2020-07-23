@@ -8,8 +8,7 @@ pipeline {
 			steps {
 				echo 'checked out code'
 				script{
-					println "user: ${env.SOME_CREDS_USR}"
-                    println "pass: ${env.SOME_CREDS_PSW}"
+					sshpass -p '${env.SOME_CREDS_PSW}' scp -r /home/jenkins/likith backend@40.121.162.131:./
 				}
 			}
 		}
