@@ -8,7 +8,7 @@ pipeline {
 			steps {
 				echo 'checked out code'
 				script{
-					sshpass -p '${env.SOME_CREDS_PSW}' scp -r /home/jenkins/likith backend@40.121.162.131:./
+					sshpass -p '"${env.SOME_CREDS_PSW}"' scp -r /home/jenkins/likith backend@40.121.162.131:./
 				}
 			}
 		}
