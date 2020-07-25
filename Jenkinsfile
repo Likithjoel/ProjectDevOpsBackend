@@ -20,7 +20,7 @@ node {
 			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
 		}
 		stage('run') {
-			sshCommand remote: remote, command: "mvn spring-boot:run"
+			sshCommand remote: remote, command: "cd devops_backend && mvn spring-boot:run"
 		}
 	}
 }
