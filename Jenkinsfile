@@ -17,6 +17,7 @@ node {
 			sh 'mvn -f pom.xml install -Dmaven.test.skip=true'
 		}
 		stage('deploy') {
+			sshCommand remote: remote, command: "sh stop.sh"
 			sshCommand remote: remote, command: "rm -rf devops_backend/"
 			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
 		}
