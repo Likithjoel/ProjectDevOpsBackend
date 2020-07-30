@@ -22,7 +22,7 @@ node {
 			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
 		}
 		stage('run') {
-			sshCommand remote: remote, command: "cd devops_backend/target && java -jar projectDevOps-0.0.1-SNAPSHOT.war & echo $! > ./pid.file &"
+			sshCommand remote: remote, command: "cd devops_backend && sh start.sh"
 		}
 	}
 }
