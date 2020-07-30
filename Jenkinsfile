@@ -17,11 +17,12 @@ node {
 			sh 'mvn -f pom.xml install -Dmaven.test.skip=true'
 		}
 		stage('deploy') {
+			sshCommand remote: remote, command: "cd devops_backend/target && kill $(cat ./pid.file)"
 			sshCommand remote: remote, command: "rm -rf devops_backend/"
 			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
 		}
 		stage('run') {
-			sshCommand remote: remote, command: "cd devops_backend && mvn spring-boot:run"
+			sshCommand remote: remote, command: "cd devops_backend/target && java -jar projectDevOps-0.0.1-SNAPSHOT.war & echo $! > ./pid.file &"
 		}
 	}
 }
