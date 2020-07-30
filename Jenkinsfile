@@ -8,6 +8,7 @@ node {
         	remote.password = password
 		stage('checkout') {
 			echo 'checked out the code'
+			git url: 'https://github.com/Likithjoel/ProjectDevOpsBackend.git'
 		}
 		stage('clean workspace') {
 			sh 'mvn clean'
