@@ -19,7 +19,7 @@ node {
 		stage('deploy') {
 			sshCommand remote: remote, command: "rm -rf devops_backend/"
 			sshPut remote: remote, from: '/var/lib/jenkins/workspace/devops_backend', into: '.'
-      sshCommand remote: remote, command: "cd devops_backend && sudo docker build -t backend-app"
+      sshCommand remote: remote, command: "cd devops_backend && sudo docker build -t backend-app ."
 		}
 		stage('run') {
 			sshCommand remote: remote, command: "sudo docker run --name backend-app --rm -d -p 8090:8090 backend-app"
